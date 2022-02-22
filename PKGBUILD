@@ -6,7 +6,7 @@
 pkgname=linux-i915-module-patched
 pkgver=5.16.10
 pkgrel=1
-pkgdesc='Linux i915 module with this patch applied: https://gitlab.freedesktop.org/drm/intel/-/issues/1627 /!\\ Must use --overwrite "*/i915.ko.zst" as it replaces the module '
+pkgdesc='Linux i915 module with this patch applied: https://gitlab.freedesktop.org/drm/intel/-/issues/1627'
 _vertag=v$pkgver-arch$pkgrel
 url="https://github.com/archlinux/linux"
 arch=(x86_64)
