@@ -14,11 +14,13 @@ license=(GPL2)
 source=(
   https://github.com/archlinux/linux/archive/refs/tags/$_vertag.tar.gz
   blacklist-i915.conf
+  kernel-config
   patch.patch
 )
 sha256sums=(
   1152b06923f0e406e4fd291df657160d5674da152ad59cf2bfc9f73bbb24c7c6
   b27ce7dc73e1579fab9db8e87d27dbc15e64dd231349f0c843c27a61b14dcd58
+  a7e88715c86f2ea77e80cb0535d827406676cb8227a9367dd98931f511b06f31
   c5e09bf109f6291727cdd4ba65f0d8160656026ec3a87f9549ebef7aeff98686)
 
 prepare() {
@@ -35,6 +37,10 @@ prepare() {
 
 build() {
   cd $srcdir/linux*
+
+  cp ../../kernel-config ./.config
+  make olddefconfig
+
   make clean
   make scripts
   make prepare
