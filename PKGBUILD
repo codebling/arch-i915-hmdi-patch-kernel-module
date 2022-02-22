@@ -39,10 +39,10 @@ prepare() {
 build() {
   cd $srcdir/linux*
   make clean
-  make -j8 scripts
-  make -j8 prepare
-  make -j8 modules_prepare
-  make -j8 M=drivers/gpu/drm/i915
+  make scripts
+  make prepare
+  make modules_prepare
+  make M=drivers/gpu/drm/i915
 }
 
 package() {
