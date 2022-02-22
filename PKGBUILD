@@ -34,8 +34,6 @@ prepare() {
         patch -p1 -i "${srcdir}/${i}"
     esac
   done
-  make -s kernelrelease > version
-  echo "Prepared $pkgbase version $(<version)"
 }
 
 build() {
@@ -49,10 +47,8 @@ build() {
 
 package() {
   cd $srcdir/linux*
-  local kernver="$(<version)"
-  local modulesdir="$pkgdir/usr/lib/modules/$kernver"
-
-  echo "Installing i915 module... ${src} ${srcdir} ${_srcname} ${pkgdir} "
+  local kernelversion=$(make -s kernelrelease)
+  local modulesdir="$pkgdir/usr/lib/modules/$kernelversion"
   zstd -z -19 "./drivers/gpu/drm/i915/i915.ko"
   install -D -m644 "./drivers/gpu/drm/i915/i915.ko.zst" "${modulesdir}/kernel/drivers/gpu/drm/i915/i915.ko.zst"
 }
