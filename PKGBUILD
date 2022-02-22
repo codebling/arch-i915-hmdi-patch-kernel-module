@@ -45,5 +45,5 @@ package() {
   local kernelversion=$(make -s kernelrelease)
   local modulesdir="$pkgdir/usr/lib/modules/$kernelversion"
   zstd -z -T0 -19 "./drivers/gpu/drm/i915/i915.ko"
-  install -D -m644 "./drivers/gpu/drm/i915/i915.ko.zst" "${modulesdir}/kernel/drivers/gpu/drm/i915/i915.ko.zst"
+  install -D -m644 "./drivers/gpu/drm/i915/i915.ko.zst" "${modulesdir}/kernel/drivers/gpu/drm/i915/i915-hdmi-patch.ko.zst"
 }
