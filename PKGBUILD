@@ -31,8 +31,8 @@ export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EP
 
 prepare() {
   git clone --depth 1 --branch v$pkgver-arch1 https://github.com/archlinux/linux.git
-
-  cd $_srcname
+  
+  cd $srcdir/linux
 
   echo "Setting version..."
   scripts/setlocalversion --save-scmversion
@@ -57,7 +57,7 @@ prepare() {
 }
 
 build() {
-  cd $_srcname
+  cd $srcdir/linux
   make clean
   make -j8 scripts
   make -j8 prepare
@@ -66,7 +66,7 @@ build() {
 }
 
 package() {
-  cd $_srcname
+  cd $srcdir/linux
   local kernver="$(<version)"
   local modulesdir="$pkgdir/usr/lib/modules/$kernver"
 
