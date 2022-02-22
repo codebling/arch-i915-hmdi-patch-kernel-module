@@ -30,8 +30,16 @@ export KBUILD_BUILD_USER=$pkgbase
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
 
 prepare() {
-  test -d linux || git clone --depth 1 --branch v$pkgver-arch1 https://github.com/archlinux/linux.git
-  
+  ver=v$pkgver-arch$pkgrel
+
+  # Clone repo if it hasn't been done already
+  # We manually clone repo instead of setting `source`,
+  # because linux repo is gigantic and we want to clone only 
+  # the tags we want (~200 MB vs 5GB)
+  if [ ! -d linux ]; then
+    git clone --depth 1 --branch $ver https://github.com/archlinux/linux.git
+  fi
+
   cd $srcdir/linux
 
   echo "Setting version..."
