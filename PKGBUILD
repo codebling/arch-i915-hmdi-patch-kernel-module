@@ -30,7 +30,7 @@ export KBUILD_BUILD_USER=$pkgbase
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
 
 prepare() {
-  git clone --depth 1 --branch v$pkgver-arch1 https://github.com/archlinux/linux.git
+  test -d linux || git clone --depth 1 --branch v$pkgver-arch1 https://github.com/archlinux/linux.git
   
   cd $srcdir/linux
 
