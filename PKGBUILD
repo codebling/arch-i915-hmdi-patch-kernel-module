@@ -3,7 +3,7 @@
 # This package rebuild only the i915 module with this patch applied: https://gitlab.freedesktop.org/drm/intel/-/issues/1627
 # Must use --overwrite "*/i915.ko.zst" as it replaces the module, for a lack of a better solution
 
-pkgname=linux-i915-module-patched
+pkgname=i915-hmdi-patch-kernel-module
 pkgver=5.16.10
 pkgrel=1
 pkgdesc='Linux i915 module with this patch applied: https://gitlab.freedesktop.org/drm/intel/-/issues/1627'
