@@ -5,25 +5,27 @@
 
 pkgname=linux-i915-module-patched
 pkgbase=linux-i915-module-patched
-pkgver=$(curl --silent https://raw.githubusercontent.com/archlinux/svntogit-packages/master/linux/trunk/PKGBUILD | grep pkgver= | sed -E 's/pkgver=//')
+pkgver=5.16.10
 pkgrel=1
 pkgdesc='Linux i915 module with this patch applied: https://gitlab.freedesktop.org/drm/intel/-/issues/1627 /!\\ Must use --overwrite "*/i915.ko.zst" as it replaces the module '
+_vertag=v$pkgver-arch$pkgrel
 url="https://github.com/archlinux/linux"
 arch=(x86_64)
 license=(GPL2)
 source=(
-  "$_srcname::git+https://github.com/archlinux/linux?signed#tag=$_srctag"
+  https://github.com/archlinux/linux/archive/refs/tags/$_vertag.tar.gz
   patch.patch
 )
-sha256sums=('SKIP'
-            'c5e09bf109f6291727cdd4ba65f0d8160656026ec3a87f9549ebef7aeff98686')
+sha256sums=(
+  1152b06923f0e406e4fd291df657160d5674da152ad59cf2bfc9f73bbb24c7c6
+  c5e09bf109f6291727cdd4ba65f0d8160656026ec3a87f9549ebef7aeff98686)
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
 
 prepare() {
-  cd $_srcname
+  cd $srcdir/linux*
 
   echo "Setting version..."
   scripts/setlocalversion --save-scmversion
@@ -48,7 +50,7 @@ prepare() {
 }
 
 build() {
-  cd $_srcname
+  cd $srcdir/linux*
   make clean
   make -j8 scripts
   make -j8 prepare
@@ -57,7 +59,7 @@ build() {
 }
 
 package() {
-  cd $_srcname
+  cd $srcdir/linux*
   local kernver="$(<version)"
   local modulesdir="$pkgdir/usr/lib/modules/$kernver"
 
