@@ -4,7 +4,6 @@
 # Must use --overwrite "*/i915.ko.zst" as it replaces the module, for a lack of a better solution
 
 pkgname=linux-i915-module-patched
-pkgbase=linux-i915-module-patched
 pkgver=5.16.10
 pkgrel=1
 pkgdesc='Linux i915 module with this patch applied: https://gitlab.freedesktop.org/drm/intel/-/issues/1627 /!\\ Must use --overwrite "*/i915.ko.zst" as it replaces the module '
@@ -19,10 +18,6 @@ source=(
 sha256sums=(
   1152b06923f0e406e4fd291df657160d5674da152ad59cf2bfc9f73bbb24c7c6
   c5e09bf109f6291727cdd4ba65f0d8160656026ec3a87f9549ebef7aeff98686)
-
-export KBUILD_BUILD_HOST=archlinux
-export KBUILD_BUILD_USER=$pkgbase
-export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
 
 prepare() {
   cd $srcdir/linux*
