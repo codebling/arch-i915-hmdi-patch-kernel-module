@@ -42,6 +42,10 @@ prepare() {
 
   cd $srcdir/linux
 
+  # Ensure consistency between PKGBUILD version, remote version and checked out version 
+  git fetch origin --depth 1 +refs/tags/$ver:refs/tags/$ver
+  git checkout $ver
+
   echo "Setting version..."
   scripts/setlocalversion --save-scmversion
   echo "-$pkgrel" > localversion.10-pkgrel
