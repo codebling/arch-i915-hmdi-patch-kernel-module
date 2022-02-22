@@ -13,10 +13,12 @@ arch=(x86_64)
 license=(GPL2)
 source=(
   https://github.com/archlinux/linux/archive/refs/tags/$_vertag.tar.gz
+  blacklist-i915.conf
   patch.patch
 )
 sha256sums=(
   1152b06923f0e406e4fd291df657160d5674da152ad59cf2bfc9f73bbb24c7c6
+  b27ce7dc73e1579fab9db8e87d27dbc15e64dd231349f0c843c27a61b14dcd58
   c5e09bf109f6291727cdd4ba65f0d8160656026ec3a87f9549ebef7aeff98686)
 
 prepare() {
@@ -41,6 +43,8 @@ build() {
 }
 
 package() {
+  install -Dm644 blacklist-i915.conf "$pkgdir/etc/modprobe.d/blacklist-i915.conf"
+
   cd $srcdir/linux*
   local kernelversion=$(make -s kernelrelease)
   local modulesdir="$pkgdir/usr/lib/modules/$kernelversion"
