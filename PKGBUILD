@@ -46,18 +46,12 @@ prepare() {
   git fetch origin --depth 1 +refs/tags/$ver:refs/tags/$ver
   git checkout $ver
 
-  echo "Setting version..."
-  scripts/setlocalversion --save-scmversion
-  echo "-$pkgrel" > localversion.10-pkgrel
-  echo "" > localversion.20-pkgname
-
-  local src
-  for src in "${source[@]}"; do
-    src="${src%%::*}"
-    src="${src##*/}"
-    [[ $src = *.patch ]] || continue
-    echo "Applying patch $src..."
-    patch -Np1 < "../$src"
+  local i;for i in "${source[@]}";do
+    case $i in
+      *.patch)
+        echo "Applying patch ${i}"
+        patch -p1 -i "${srcdir}/${i}"
+    esac
   done
 
   echo "Setting config..."
