@@ -34,11 +34,6 @@ prepare() {
         patch -p1 -i "${srcdir}/${i}"
     esac
   done
-
-  echo "Setting config..."
-  wget -O .config "https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/linux/trunk/config"
-  make olddefconfig
-
   make -s kernelrelease > version
   echo "Prepared $pkgbase version $(<version)"
 }
