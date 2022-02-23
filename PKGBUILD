@@ -45,6 +45,10 @@ build() {
   sed -i -E 's/^EXTRAVERSION.*$/EXTRAVERSION = -'${_archver}-${_archrel}'/' Makefile
 
   cp ../kernel-config ./.config
+
+  # Remove the debug info with the following command
+  #sed -i -E 's/CONFIG_DEBUG_INFO *= *y/CONFIG_DEBUG_INFO=n/' ./.config
+
   make olddefconfig
 
   make clean
