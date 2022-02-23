@@ -4,15 +4,19 @@
 # Must use --overwrite "*/i915.ko.zst" as it replaces the module, for a lack of a better solution
 
 pkgname=i915-hmdi-patch-kernel-module
-pkgver=5.16.10
+_linver=5.16.10
+_archver=arch1
+_archrel=1
+_archtag=${_linver}-${_archver}-${_archrel}
+pkgver=${_archtag//-/_}
 pkgrel=1
+_gitvertag=v$_linver-$_archver
 pkgdesc='Linux i915 module with this patch applied: https://gitlab.freedesktop.org/drm/intel/-/issues/1627'
-_vertag=v$pkgver-arch$pkgrel
 url="https://github.com/archlinux/linux"
 arch=(x86_64)
 license=(GPL2)
 source=(
-  https://github.com/archlinux/linux/archive/refs/tags/$_vertag.tar.gz
+  https://github.com/archlinux/linux/archive/refs/tags/$_gitvertag.tar.gz
   blacklist-i915.conf
   kernel-config
   patch.patch
