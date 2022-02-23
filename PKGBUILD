@@ -42,7 +42,7 @@ prepare() {
 build() {
   cd $srcdir/linux*
 
-  cp ../../kernel-config ./.config
+  cp ../kernel-config ./.config
   make olddefconfig
 
   make clean
