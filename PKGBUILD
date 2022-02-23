@@ -42,6 +42,7 @@ prepare() {
 build() {
   cd $srcdir/linux*
 
+  # Adjust the kernel version to match Arch's (e.g. -arch1-1) so that modprobe does not complain
   sed -i -E 's/^EXTRAVERSION.*$/EXTRAVERSION = -'${_archver}-${_archrel}'/' Makefile
 
   cp ../kernel-config ./.config
