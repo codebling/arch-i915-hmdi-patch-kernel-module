@@ -42,6 +42,8 @@ prepare() {
 build() {
   cd $srcdir/linux*
 
+  sed -i -E 's/^EXTRAVERSION.*$/EXTRAVERSION = -'${_archver}-${_archrel}'/' Makefile
+
   cp ../kernel-config ./.config
   make olddefconfig
 
